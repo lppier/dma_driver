@@ -190,6 +190,8 @@ user_scatter_gather(struct file *filp, char __user *userbuf, size_t nbytes, stru
 
     pr_debug("dma_map_sg returned %d\n", sg_count);
 
+    // -- Intention is to put code from here on in the dma data ready interrupt servicing procedure
+    // -- also need to initiate the DMA by setting the registers of the DMA device
     // Mapping to hardware internal descriptors should start here
     {
         struct scatterlist *sg;
@@ -253,6 +255,7 @@ static int __init device_init(void)
         pr_warning("misc_register failed %d\n", rc);
     }
 
+// -- Commented out as no DMA capable device to test against
 //    if (dma_set_mask_and_coherent(dma_device.this_device, DMA_BIT_MASK(32)))
 //    {
 //        pr_warning("mymiscdev: No suitable DMA available\n");
